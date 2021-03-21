@@ -42,8 +42,17 @@ async function _自选股增加PE() {
     stockList.forEach((stock) => {
         const data = stock.quote;
         const node = portfolio.querySelector(`[sid='${data.symbol}']`);
-        node.querySelector('td:nth-child(4)').innerText = data.pe_lyr || '';
-        node.querySelector('td:nth-child(5)').innerText = data.pe_forecast || '';
+        const staticPE = node.querySelector('td:nth-child(4)');
+        // 大于50倍，或小于0倍的pe的显示为灰色
+        if( data.pe_lyr > 40 || data.pe_lyr < 0 ) {
+            staticPE.style.color = '#ccc';
+        }
+        staticPE.innerText = data.pe_lyr || '';
+        const forecastPE = node.querySelector('td:nth-child(5)');
+        if( data.pe_forecast > 40 || data.pe_forecast < 0 ) {
+            forecastPE.style.color = '#ccc';
+        }
+        forecastPE.innerText = data.pe_forecast || '';
     });
 }
 async function getStockInfo(sid) {
