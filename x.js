@@ -5,7 +5,6 @@ function _过滤新闻() {
         return;
     }
     timelineCount = nodes.length;
-    console.log('update!')
     nodes.forEach((node) => {
         const source = node.querySelector('.date-and-source');
         if( source.innerText.includes('新闻') ) {
